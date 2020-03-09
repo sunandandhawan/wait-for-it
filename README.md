@@ -14,7 +14,7 @@ waitFor('#menu')
     approve.click();
   })
 .thenWaitFor('#confirmation')
-  .andDo((approve) => {
+  .andDo((confirmation) => {
     //TODO: Open next item
   })
 ```

@@ -28,13 +28,13 @@ waitFor('[href*=followers]')
     scrllr(0, this.following, 'followingPopUpClosed');
   })
   .thenWaitFor('#followingPopUpClosed').andDo((fllwng) => {
-    console.log('Followings not in Followers...');
     var followingNotFollower = [];
     for(var i = 0; i < this.following.length; i++) {
       if(this.followers.indexOf(this.following[i]) == -1) {
         followingNotFollower.push(this.following[i]);
       }
     }
+    console.log(`${followingNotFollower.length} Followings not in Followers...`);
     console.log(followingNotFollower.join('\n'));
   })
 function scrllr(count, arr, onCloseId, height) {

@@ -9,6 +9,7 @@ waitFor('[href*=followers]')
     fllwr.click();
   })
   .thenWaitFor('.eiUFA:content(Followers)').andDo(() => {
+    console.log('Getting all followers...');
     this.followers = [];
     var followersPopUpClosedDiv = document.getElementById('followersPopUpClosed');
     if (followersPopUpClosedDiv)
@@ -19,6 +20,7 @@ waitFor('[href*=followers]')
     document.querySelectorAll('[href*=following]')[0].click();
   })
   .thenWaitFor('.eiUFA:content(Following)').andDo(() => {
+    console.log('Getting all following...');
     this.following = [];
     var followingPopUpClosedDiv = document.getElementById('followingPopUpClosed');
     if (followingPopUpClosedDiv)
@@ -26,15 +28,14 @@ waitFor('[href*=followers]')
     scrllr(0, this.following, 'followingPopUpClosed');
   })
   .thenWaitFor('#followingPopUpClosed').andDo((fllwng) => {
-    console.log('followers', this.followers.length);
-    console.log('following', this.following.length);
+    console.log('Followings not in Followers...');
     var followingNotFollower = [];
     for(var i = 0; i < this.following.length; i++) {
       if(this.followers.indexOf(this.following[i]) == -1) {
         followingNotFollower.push(this.following[i]);
       }
     }
-    console.log('followingNotFollower', followingNotFollower);
+    console.log(followingNotFollower.join('\n'));
   })
 function scrllr(count, arr, onCloseId, height) {
   var scrlContDiv = document.querySelectorAll('.isgrP')[0];
@@ -69,12 +70,10 @@ function waitForIt(processLimit) {
   var isProcessRunning = false;
   function addQueryToQueue(query) {
     queue.push({ query: query });
-    console.log(queue);
     return addActionObj;
   }
   function addActionToQueue(callback) {
     queue[queue.length - 1]["callback"] = callback;
-    console.log(queue);
     if (!isProcessRunning) {
       isProcessRunning = true;
       processQueue();

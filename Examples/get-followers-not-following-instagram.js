@@ -1,6 +1,6 @@
 /*
  * 1. Go to your profile page example: https://instagram.com/chor.market
- * 2. Copy and paste this script in browser console
+ * 2. Copy and paste this script in Console of Browser's Developer Tools (F12)
  * 3. Followers who are not following you will be printed in the browser console in a minute
  */
 var waitFor = new waitForIt();

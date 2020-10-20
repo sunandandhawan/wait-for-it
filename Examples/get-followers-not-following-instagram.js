@@ -30,8 +30,30 @@ waitFor('[href*=followers]')
   .thenWaitFor('#followingPopUpClosed').andDo((fllwng) => {
     var followingNotFollower = this.following.filter(e => !followers.includes(e));
     console.log(`${followingNotFollower.length} Followings not in Followers...`);
-    console.log(followingNotFollower.join('\n'));
+    if (confirm('Open Followings not in Followers Accounts?')) {
+      openAccounts(followingNotFollower)
+    } else {
+      console.log(followingNotFollower.join('\n'));
+    }
+    var followersNotFollowing = this.followers.filter(e => !following.includes(e));
+    console.log(`${followersNotFollowing.length} Followers not in Following...`);
+    if (confirm('Open Followers not in Following Accounts?')) {
+      openAccounts(followersNotFollowing)
+    } else {
+      console.log(followersNotFollowing.join('\n'));
+    }
   })
+
+function openAccounts(ids) {
+  ids.forEach(e => {
+    var a = document.createElement('a');
+    a.href = `https://instagram.com/${e}`;
+    var evt = document.createEvent('MouseEvents');
+    evt.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, true, false, false, false, 0, null)
+    a.dispatchEvent(evt);
+  });
+}
+
 function scrllr(count, arr, onCloseId, height) {
   var scrlContDiv = document.querySelectorAll('.isgrP')[0];
   var itmCont = document.querySelectorAll('.isgrP ul')[0];
